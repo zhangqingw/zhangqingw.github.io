@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>拖拽</title>
+	</head>
+	<body>
+		<diV id="box">
+			<div style="width:200px;height:200px;position:absolute;background:pink;border-radius:50%;" v-lee></div>
+		</diV>
+		<script src="vue.js"></script>
+		<script>
+			Vue.directive('lee', (a) => {
+				a.onmousedown = function(ev) {
+					var left = a.offsetLeft 
+					var top = a.offsetTop
+					var xleft = ev.clientX - left
+					var ytop = ev.clientY - top
+					document.onmousemove = function(ev) {
+						var x = ev.clientX - xleft
+						var y = ev.clientY - ytop
+						a.style.top = y + 'px'
+						a.style.left = x + 'px'
+					}
+					window.onmouseup = function() {
+						document.onmousemove = ''
+					}
+				}
+			})
+
+			new Vue({
+				el: "#box",
+			})
+		</script>
+	</body>
+</html>
