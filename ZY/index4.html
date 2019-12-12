@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{margin:0;padding:0;}
+		[v-cloak]{
+			display: none; 
+		}
+		.co{
+			background:#35ec7e;
+		}
+		#box:hover{
+			width:100%;
+			background-color:pink;
+		}
+	
+		#box .co:hover{
+			background-color:green;
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div id="box" v-cloak="">
+		<div style="width:700px;margin:60px auto;">
+			<lee :boxarr="arr"></lee>
+		</div>
+		
+	</div>
+	<template id="no1">
+		<div>
+			<div style="overflow: hidden;line-height: 50px;border:solid 1px #ddd;">
+				<div v-for="(i,$index) in arr" style="float: left;padding:0 44px;" @click="index=$index" :class="$index==index?'co':''">{{i.title}}</div>
+			</div>
+			<div style="line-height:40px;border:solid 1px #ddd;height: 300px;">
+				<div v-for="(i,$index) in arr" v-show="index==$index" style="color: #ccc;padding:0 30px;">
+				<img :src="i.img" alt="">
+				</div>
+			</div>
+		</div>
+	</template>
+</body>
+<script src="vue.js"></script>
+<script>
+	Vue.component('lee',{
+		template:"#no1",
+		props:['boxarr'],
+		data(){
+			return{
+				index:0,
+				arr:this.boxarr
+			}
+		}
+	})
+	new Vue({
+		el:"#box",
+		data:{
+			arr:[
+				{title:"puppyOne",img:"https://p0.ssl.qhimgs1.com/sdr/400__/t01b8eb355ce9cec976.png"},
+				{title:"puppyTwo",img:"https://p0.ssl.qhimgs1.com/sdr/400__/t0124ad34d9c7f27484.png"},
+				{title:"puppyThree",img:"http://www.nanrenwo.net/uploads/allimg/141103/4909-1411031A633-50.jpg"},
+				{title:"puppyFour",img:"https://p0.ssl.qhimgs1.com/sdr/400__/t0150df1b3c63b80356.jpg"},
+				]
+		}
+	})
+</script>
+</html>
